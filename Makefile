@@ -6,13 +6,13 @@
 #    By: aledru <aledru@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 14:26:59 by aledru            #+#    #+#              #
-#    Updated: 2017/12/09 14:58:31 by aledru           ###   ########.fr        #
+#    Updated: 2017/12/09 20:09:41 by aledru           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libft
-INCLUDEFOLDERS := -I includes/
 
+INCLUDE_FOLDERS := -I includes/
 SOURCES_FOLDER := srcs/
 OBJECTS_FOLDER := objs/
 
@@ -92,36 +92,37 @@ OBJECTS := $(SOURCES:.c=.o)
 OBJECTS := $(addprefix $(OBJECTS_FOLDER), $(OBJECTS))
 SOURCES := $(addprefix $(SOURCES_FOLDER), $(SOURCES))
 
-# Colors
 NO_COLOR     := \x1b[0m
 OK_COLOR     := \x1b[32;01m
-ERROR_COLOR  := \x1b[31;01m
-WARN_COLOR   := \x1b[33;01m
+HEAD_COLOR   := \x1b[32;01m
 SILENT_COLOR := \x1b[30;01m
 
+all: header $(NAME)
 
-# Basic Rules
-.PHONY: all re clean fclean
-
-all: $(NAME)
-
-objs/%.o: %.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDEFOLDERS) -c $(subst __,/,$<) -o $@
-	@printf "$(OK_COLOR)✓ $(NO_COLOR)"
-	@echo $<
+header:
+	@printf "\n$(HEAD_COLOR)--------------------------------\n"
+	@printf "$(HEAD_COLOR)------------ LIBFT -------------\n"
+	@printf "$(HEAD_COLOR)--------------------------------$(NO_COLOR)\n\n"
 
 $(NAME): $(OBJECTS)
-	@printf "$(SILENT_COLOR)Compiling $(NAME)...$(NO_COLOR)"
+	@printf "\n$(SILENT_COLOR)Compiling $(NAME)...$(NO_COLOR)"
 	@ar rcs $(NAME).a $(OBJECTS)
 	@printf " $(OK_COLOR)Done ✓$(NO_COLOR)\n"
 
+objs/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -c $< -o $@
+	@printf "$(notdir $<) "
+	@printf "$(OK_COLOR)✓$(NO_COLOR)\n"
+
 clean:
 	@rm -rf $(OBJECTS_FOLDER)
-	@printf "$(SILENT_COLOR)$(NAME) : Removed objects$(NO_COLOR)\n"
+	@printf "$(SILENT_COLOR)$(NAME) : Objects removed$(NO_COLOR)\n"
 
 fclean: clean
 	@rm -f $(NAME).a
-	@printf "$(SILENT_COLOR)$(NAME) : Removed library$(NO_COLOR)\n"
+	@printf "$(SILENT_COLOR)$(NAME) : Library removed$(NO_COLOR)\n"
 
 re: fclean all
+
+.PHONY: all re clean fclean header
