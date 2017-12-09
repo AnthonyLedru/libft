@@ -1,0 +1,127 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aledru <aledru@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/12/09 14:26:59 by aledru            #+#    #+#              #
+#    Updated: 2017/12/09 14:58:31 by aledru           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME := libft
+INCLUDEFOLDERS := -I includes/
+
+SOURCES_FOLDER := srcs/
+OBJECTS_FOLDER := objs/
+
+vpath %.c srcs
+
+CFLAGS := -Wall -Werror -Wextra
+
+SOURCES := \
+		mem/ft_memset.c \
+		mem/ft_bzero.c \
+		mem/ft_memcpy.c \
+		mem/ft_memccpy.c \
+		mem/ft_memmove.c \
+		mem/ft_memchr.c \
+		mem/ft_memcmp.c \
+		str/ft_strlen.c \
+		str/ft_strdup.c \
+		str/ft_strcpy.c \
+		str/ft_strncpy.c \
+		str/ft_strcat.c \
+		str/ft_strncat.c \
+		str/ft_strlcat.c \
+		str/ft_strstr.c \
+		str/ft_strnstr.c \
+		str/ft_strcmp.c \
+		str/ft_strncmp.c \
+		others/ft_atoi.c \
+		char/ft_isalpha.c \
+		char/ft_isdigit.c \
+		char/ft_isalnum.c \
+		char/ft_isascii.c \
+		char/ft_isprint.c \
+		str/ft_toupper.c \
+		str/ft_tolower.c \
+		str/ft_strchr.c \
+		str/ft_strrchr.c \
+		mem/ft_memalloc.c \
+		mem/ft_memdel.c \
+		str/ft_strnew.c \
+		str/ft_strdel.c \
+		str/ft_strclr.c \
+		str/ft_striter.c \
+		str/ft_striteri.c \
+		str/ft_strmap.c \
+		str/ft_strmapi.c \
+		str/ft_strequ.c \
+		str/ft_strnequ.c \
+		str/ft_strsub.c \
+		str/ft_strjoin.c \
+		str/ft_strtrim.c \
+		str/ft_strtrim.c \
+		str/ft_strsplit.c \
+		others/ft_itoa.c \
+		put/ft_putchar.c \
+		put/ft_putchar_fd.c \
+		put/ft_putstr.c \
+		put/ft_putendl.c \
+		put/ft_putnbr.c \
+		put/ft_putstr_fd.c \
+		put/ft_putendl_fd.c \
+		put/ft_putnbr_fd.c \
+		lst/ft_lstnew.c \
+		lst/ft_lstdelone.c \
+		lst/ft_lstdel.c \
+		lst/ft_lstadd.c \
+		lst/ft_lstiter.c \
+		lst/ft_lstmap.c \
+		char/ft_isblank.c \
+		char/ft_islower.c \
+		char/ft_isupper.c \
+		char/ft_isspace.c \
+		char/ft_isxdigit.c \
+		others/get_next_line.c
+
+OBJECTS := $(SOURCES:.c=.o)
+
+OBJECTS := $(addprefix $(OBJECTS_FOLDER), $(OBJECTS))
+SOURCES := $(addprefix $(SOURCES_FOLDER), $(SOURCES))
+
+# Colors
+NO_COLOR     := \x1b[0m
+OK_COLOR     := \x1b[32;01m
+ERROR_COLOR  := \x1b[31;01m
+WARN_COLOR   := \x1b[33;01m
+SILENT_COLOR := \x1b[30;01m
+
+
+# Basic Rules
+.PHONY: all re clean fclean
+
+all: $(NAME)
+
+objs/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDEFOLDERS) -c $(subst __,/,$<) -o $@
+	@printf "$(OK_COLOR)✓ $(NO_COLOR)"
+	@echo $<
+
+$(NAME): $(OBJECTS)
+	@printf "$(SILENT_COLOR)Compiling $(NAME)...$(NO_COLOR)"
+	@ar rcs $(NAME).a $(OBJECTS)
+	@printf " $(OK_COLOR)Done ✓$(NO_COLOR)\n"
+
+clean:
+	@rm -rf $(OBJECTS_FOLDER)
+	@printf "$(SILENT_COLOR)$(NAME) : Removed objects$(NO_COLOR)\n"
+
+fclean: clean
+	@rm -f $(NAME).a
+	@printf "$(SILENT_COLOR)$(NAME) : Removed library$(NO_COLOR)\n"
+
+re: fclean all

@@ -1,2 +1,2 @@
-# libft_v2
-Libft V2
+# libft
+Libft V2.
