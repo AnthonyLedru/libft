@@ -6,10 +6,11 @@
 /*   By: aledru <aledru@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 15:56:00 by aledru            #+#    #+#             */
-/*   Updated: 2017/12/09 14:25:46 by aledru           ###   ########.fr       */
+/*   Updated: 2017/12/13 22:28:52 by aledru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include "libft.h"
 
 /*
@@ -50,30 +51,32 @@ static	t_list	*get_valid_lst(t_list **lst_save, int fd)
 ** Get the string before the first '\n' encountered in the line read.
 */
 
-static char		*get_line_before_n(char *last_line_read)
+static char		*get_line_before_n(char **last_line_read)
 {
 	char	**str;
 	int		i;
-	char	*ptr;
+	char	*line;
 
 	i = 0;
-	if (ft_strchr(last_line_read, '\n'))
+	if (ft_strchr(*last_line_read, '\n'))
 	{
-		str = ft_strsplit(last_line_read, '\n');
+		str = ft_strsplit(*last_line_read, '\n');
 		if (str[0][0] == '\n')
-			ptr = ft_strdup(str[1]);
+		{
+			line = ft_strdup(str[1]);
+		}
 		else
-			ptr = ft_strdup(str[0]);
-		last_line_read = ptr;
+			line = ft_strdup(str[0]);
 		while (str[i])
 		{
 			free(str[i]);
 			i++;
 		}
 		free(str);
-		free(ptr);
 	}
-	return (last_line_read);
+	else
+		line = ft_strdup(*last_line_read);
+	return (line);
 }
 
 /*
@@ -101,14 +104,16 @@ static int		read_file(char **content, t_list *lst)
 	char	*to_free;
 	int		i;
 
-	i = 0;
 	buf = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE + 1);
 	while ((size = read(lst->content_size, buf, BUFF_SIZE)) > 0)
 	{
 		buf[size] = '\0';
 		to_free = *content;
 		*content = ft_strjoin(*content, buf);
-		if (ft_strcmp(to_free, "") != 0)
+		i = 0;
+		while (to_free[i])
+			i++;
+		if (i != 0)
 			free(to_free);
 	}
 	free(buf);
@@ -140,7 +145,7 @@ int				get_next_line(const int fd, char **line)
 		*line = ft_strnew(0);
 		return (1);
 	}
-	*line = ft_strdup(get_line_before_n((char*)(lst->content)));
+	*line = get_line_before_n((char**)(&lst->content));
 	lst->content = get_line_after_n((char**)(&lst->content));
 	return (1);
 }
