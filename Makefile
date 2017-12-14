@@ -6,7 +6,7 @@
 #    By: aledru <aledru@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 14:26:59 by aledru            #+#    #+#              #
-#    Updated: 2017/12/09 20:09:41 by aledru           ###   ########.fr        #
+#    Updated: 2017/12/14 15:57:04 by aledru           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SOURCES := \
 		mem/ft_memmove.c \
 		mem/ft_memchr.c \
 		mem/ft_memcmp.c \
+		mem/ft_memalloc.c \
+		mem/ft_memdel.c \
 		str/ft_strlen.c \
 		str/ft_strdup.c \
 		str/ft_strcpy.c \
@@ -38,19 +40,11 @@ SOURCES := \
 		str/ft_strstr.c \
 		str/ft_strnstr.c \
 		str/ft_strcmp.c \
-		str/ft_strncmp.c \
-		others/ft_atoi.c \
-		char/ft_isalpha.c \
-		char/ft_isdigit.c \
-		char/ft_isalnum.c \
-		char/ft_isascii.c \
-		char/ft_isprint.c \
 		str/ft_toupper.c \
 		str/ft_tolower.c \
 		str/ft_strchr.c \
+		str/ft_strncmp.c \
 		str/ft_strrchr.c \
-		mem/ft_memalloc.c \
-		mem/ft_memdel.c \
 		str/ft_strnew.c \
 		str/ft_strdel.c \
 		str/ft_strclr.c \
@@ -65,7 +59,16 @@ SOURCES := \
 		str/ft_strtrim.c \
 		str/ft_strtrim.c \
 		str/ft_strsplit.c \
-		others/ft_itoa.c \
+		char/ft_isblank.c \
+		char/ft_islower.c \
+		char/ft_isupper.c \
+		char/ft_isspace.c \
+		char/ft_isxdigit.c \
+		char/ft_isalpha.c \
+		char/ft_isdigit.c \
+		char/ft_isalnum.c \
+		char/ft_isascii.c \
+		char/ft_isprint.c \
 		put/ft_putchar.c \
 		put/ft_putchar_fd.c \
 		put/ft_putstr.c \
@@ -80,12 +83,11 @@ SOURCES := \
 		lst/ft_lstadd.c \
 		lst/ft_lstiter.c \
 		lst/ft_lstmap.c \
-		char/ft_isblank.c \
-		char/ft_islower.c \
-		char/ft_isupper.c \
-		char/ft_isspace.c \
-		char/ft_isxdigit.c \
-		others/get_next_line.c
+		others/get_next_line.c \
+		others/ft_htoi.c \
+		others/ft_atoi.c \
+		others/ft_itoa.c \
+
 
 OBJECTS := $(SOURCES:.c=.o)
 
