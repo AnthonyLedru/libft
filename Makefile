@@ -6,7 +6,7 @@
 #    By: aledru <aledru@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 14:26:59 by aledru            #+#    #+#              #
-#    Updated: 2017/12/14 15:57:04 by aledru           ###   ########.fr        #
+#    Updated: 2017/12/15 14:34:22 by aledru           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJECTS_FOLDER := objs/
 
 vpath %.c srcs
 
-CFLAGS := -Wall -Werror -Wextra
+FLAGS := -Wall -Werror -Wextra
 
 SOURCES := \
 		mem/ft_memset.c \
@@ -87,6 +87,7 @@ SOURCES := \
 		others/ft_htoi.c \
 		others/ft_atoi.c \
 		others/ft_itoa.c \
+		num/ft_abs.c \
 
 
 OBJECTS := $(SOURCES:.c=.o)
@@ -113,7 +114,7 @@ $(NAME): $(OBJECTS)
 
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -c $< -o $@
+	@$(CC) $(FLAGS) $(INCLUDE_FOLDERS) -c $< -o $@
 	@printf "$(notdir $<) "
 	@printf "$(OK_COLOR)✓$(NO_COLOR)\n"
 
