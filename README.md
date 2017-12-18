@@ -1,8 +1,8 @@
 # Libft V2
-Ce projet est une bibliothèque comprenants des fonctions de la libc standard et d'autres fonctions géneriques.
+This project is a library with standard libc functions and some others generic functions.
 
-Il s'agit d'une version V2:
-- Améliorations du Makefile
-- Ajout des fonctions :
+Change log:
+- Makefile improvement
+- Add functions:
   - get_next_line
   - htoi
