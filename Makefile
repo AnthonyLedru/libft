@@ -120,11 +120,11 @@ objs/%.o: %.c
 
 clean:
 	@rm -rf $(OBJECTS_FOLDER)
-	@printf "$(SILENT_COLOR)$(NAME) : Objects removed$(NO_COLOR)\n"
+	@printf "$(SILENT_COLOR)$libft : Objects removed$(NO_COLOR)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "$(SILENT_COLOR)$(NAME) : Library removed$(NO_COLOR)\n"
+	@printf "$(SILENT_COLOR)$libft : Library removed$(NO_COLOR)\n"
 
 re: fclean all
 
