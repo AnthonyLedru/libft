@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME := libft
+NAME := libft.a
 
 INCLUDE_FOLDERS := -I includes/
 SOURCES_FOLDER := srcs/
@@ -109,7 +109,7 @@ header:
 
 $(NAME): $(OBJECTS)
 	@printf "\n$(SILENT_COLOR)Compiling $(NAME)...$(NO_COLOR)"
-	@ar rcs $(NAME).a $(OBJECTS)
+	@ar rcs $(NAME) $(OBJECTS)
 	@printf " $(OK_COLOR)Done ✓$(NO_COLOR)\n"
 
 objs/%.o: %.c
@@ -123,7 +123,7 @@ clean:
 	@printf "$(SILENT_COLOR)$(NAME) : Objects removed$(NO_COLOR)\n"
 
 fclean: clean
-	@rm -f $(NAME).a
+	@rm -f $(NAME)
 	@printf "$(SILENT_COLOR)$(NAME) : Library removed$(NO_COLOR)\n"
 
 re: fclean all
