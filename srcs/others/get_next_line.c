@@ -6,7 +6,7 @@
 /*   By: aledru <aledru@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 15:56:00 by aledru            #+#    #+#             */
-/*   Updated: 2017/12/13 22:28:52 by aledru           ###   ########.fr       */
+/*   Updated: 2018/01/13 22:49:22 by aledru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	t_list	*get_valid_lst(t_list **lst_save, int fd)
 	}
 	tmp = (t_list*)ft_memalloc(sizeof(t_list));
 	tmp->content_size = fd;
-	tmp->content = "";
+	tmp->content = ft_memalloc(sizeof(char) * 1);
 	(*lst_save)->next = tmp;
 	*lst_save = first;
 	return (tmp);
@@ -62,17 +62,15 @@ static char		*get_line_before_n(char **last_line_read)
 	{
 		str = ft_strsplit(*last_line_read, '\n');
 		if (str[0][0] == '\n')
-		{
 			line = ft_strdup(str[1]);
-		}
 		else
 			line = ft_strdup(str[0]);
 		while (str[i])
 		{
-			free(str[i]);
+			ft_memdel((void*)&str[i]);
 			i++;
 		}
-		free(str);
+		ft_memdel((void*)&str);
 	}
 	else
 		line = ft_strdup(*last_line_read);
@@ -83,12 +81,16 @@ static char		*get_line_before_n(char **last_line_read)
 ** Get the string after the first '\n' or '\0' encountered in the line read.
 */
 
-static char		*get_line_after_n(char **last_line_read)
+static void		*get_line_after_n(char **last_line_read)
 {
+	void	*to_free;
+
+	to_free = *last_line_read;
 	if (ft_strchr(*last_line_read, '\n'))
-		*last_line_read = &ft_strchr(*last_line_read, '\n')[1];
+		*last_line_read = ft_strdup(&ft_strchr(*last_line_read, '\n')[1]);
 	else if (ft_strchr(*last_line_read, '\0'))
-		*last_line_read = &ft_strchr(*last_line_read, '\0')[0];
+		*last_line_read = ft_strdup(ft_strchr(*last_line_read, '\0'));
+	ft_memdel((void*)&to_free);
 	return (*last_line_read);
 }
 
@@ -102,7 +104,6 @@ static int		read_file(char **content, t_list *lst)
 	char	*buf;
 	int		size;
 	char	*to_free;
-	int		i;
 
 	buf = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE + 1);
 	while ((size = read(lst->content_size, buf, BUFF_SIZE)) > 0)
@@ -110,13 +111,11 @@ static int		read_file(char **content, t_list *lst)
 		buf[size] = '\0';
 		to_free = *content;
 		*content = ft_strjoin(*content, buf);
-		i = 0;
-		while (to_free[i])
-			i++;
-		if (i != 0)
-			free(to_free);
+		ft_memdel((void*)&to_free);
+		if (ft_strchr(*content, '\n'))
+			break ;
 	}
-	free(buf);
+	ft_memdel((void*)&buf);
 	return (size);
 }
 
@@ -141,11 +140,11 @@ int				get_next_line(const int fd, char **line)
 	}
 	if (((char*)lst->content)[0] == '\n')
 	{
-		lst->content = get_line_after_n((char**)(&lst->content));
+		get_line_after_n((char**)(&lst->content));
 		*line = ft_strnew(0);
 		return (1);
 	}
 	*line = get_line_before_n((char**)(&lst->content));
-	lst->content = get_line_after_n((char**)(&lst->content));
+	get_line_after_n((char**)(&lst->content));
 	return (1);
 }
