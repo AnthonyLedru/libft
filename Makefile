@@ -110,6 +110,7 @@ header:
 $(NAME): $(OBJECTS)
 	@printf "\n$(SILENT_COLOR)Compiling $(NAME)...$(NO_COLOR)"
 	@ar rcs $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
 	@printf " $(OK_COLOR)Done ✓$(NO_COLOR)\n"
 
 objs/%.o: %.c
