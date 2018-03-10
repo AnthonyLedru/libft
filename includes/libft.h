@@ -6,7 +6,7 @@
 /*   By: aledru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 05:40:02 by aledru            #+#    #+#             */
-/*   Updated: 2017/12/15 14:35:03 by aledru           ###   ########.fr       */
+/*   Updated: 2018/03/10 13:46:06 by aledru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "get_next_line.h"
+# include "ft_printf.h"
 
 void			*ft_memset(void *str, int c, size_t n);
 void			ft_bzero(void *s, size_t n);

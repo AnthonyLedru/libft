@@ -9,3 +9,4 @@ Run `make` command to compile the library
 - Add functions:
   - get_next_line
   - htoi
+  - ft_printf

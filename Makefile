@@ -83,11 +83,25 @@ SOURCES := \
 		lst/ft_lstadd.c \
 		lst/ft_lstiter.c \
 		lst/ft_lstmap.c \
-		others/get_next_line.c \
 		others/ft_htoi.c \
 		others/ft_atoi.c \
 		others/ft_itoa.c \
+		others/get_next_line.c \
 		num/ft_abs.c \
+		ft_printf/ft_printf.c \
+		ft_printf/ft_dprintf.c \
+		ft_printf/ft_error.c \
+		ft_printf/ft_env.c \
+		ft_printf/ft_env_setters.c \
+		ft_printf/ft_put.c \
+		ft_printf/ft_parser.c \
+		ft_printf/ft_arg_cast.c \
+		ft_printf/ft_conversion_selector.c \
+		ft_printf/ft_string_conversion.c \
+		ft_printf/ft_number_conversion.c \
+		ft_printf/ft_char_conversion.c \
+		ft_printf/ft_base_converter.c \
+		ft_printf/ft_unicode.c \
 
 
 OBJECTS := $(SOURCES:.c=.o)
@@ -113,11 +127,16 @@ $(NAME): $(OBJECTS)
 objs/%.o: %.c
 	@if [ "$(HEADER_PRINTED)" = "NO" ]; then \
 		printf "\n$(HEAD_COLOR)--------------------------------\n"; \
-		printf "$(HEAD_COLOR)---------- FT_PRINTF -----------\n"; \
+		printf "$(HEAD_COLOR)------------ LIBFT -------------\n"; \
 		printf "$(HEAD_COLOR)--------------------------------$(NO_COLOR)\n\n"; \
 		$(eval HEADER_PRINTED := YES) \
 	fi
 	@mkdir -p $(dir $@)
+	@if [ "$(notdir $<)" = "ft_printf.c" ]; then \
+		printf "\n$(HEAD_COLOR)--------------------------------\n"; \
+		printf "$(HEAD_COLOR)---------- FT_PRINTF -----------\n"; \
+		printf "$(HEAD_COLOR)--------------------------------$(NO_COLOR)\n\n"; \
+	fi
 	@$(CC) $(FLAGS) $(INCLUDE_FOLDERS) -c $< -o $@
 	@printf "$(notdir $<) "
 	@printf "$(OK_COLOR)✓$(NO_COLOR)\n"
