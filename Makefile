@@ -149,6 +149,8 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf "$(SILENT_COLOR)libft : Library removed$(NO_COLOR)\n"
 
-re: fclean all
+re:
+	@make fclean
+	@make
 
 .PHONY: all re clean fclean header
