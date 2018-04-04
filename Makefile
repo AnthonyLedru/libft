@@ -145,7 +145,8 @@ clean:
 	@rm -rf $(OBJECTS_FOLDER)
 	@printf "$(SILENT_COLOR)libft : Objects removed$(NO_COLOR)\n"
 
-fclean: clean
+fclean: 
+	@make clean
 	@rm -f $(NAME)
 	@printf "$(SILENT_COLOR)libft : Library removed$(NO_COLOR)\n"
 
