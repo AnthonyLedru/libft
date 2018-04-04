@@ -1,6 +1,8 @@
 # Libft
 This project is a library with standard libc functions and some others generic functions made for 42 school.
 
+This code complies with the 42 school norm: https://github.com/AnthonyLedru/norm/blob/master/norme.pdf
+
 ## Compilation
 Run `make` command to compile the library
 
